@@ -16,6 +16,7 @@ public class SkillMapper {
 
   public static SkillDto modelToDto(Skill skill) {
     return SkillDto.builder()
+        .id(skill.getId())
         .name(skill.getName())
         .build();
   }

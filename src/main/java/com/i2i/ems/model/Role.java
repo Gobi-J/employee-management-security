@@ -17,4 +17,5 @@ public class Role {
   private String designation;
   private String level;
   private String department;
+  private Boolean isDeleted;
 }

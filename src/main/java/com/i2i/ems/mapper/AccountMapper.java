@@ -10,7 +10,6 @@ public class AccountMapper {
         .id(account.getId())
         .accountNumber(account.getAccountNumber())
         .build();
-
   }
   public static Account dtoToModel(AccountDto accountDto) {
     return Account.builder()

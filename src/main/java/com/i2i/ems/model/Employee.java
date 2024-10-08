@@ -16,6 +16,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * <p>
+ * Model class that maps the employee details.
+ * Contains all associated fields of an employee.
+ * </p>
+ */
 @Builder
 @Setter
 @Getter

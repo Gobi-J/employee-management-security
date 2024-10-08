@@ -9,6 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * <p>
+ * Controller that handles the account related operations.
+ * </p>
+ */
 @RestController
 @RequestMapping("v1/employees/{employeeId}/accounts")
 public class AccountController {

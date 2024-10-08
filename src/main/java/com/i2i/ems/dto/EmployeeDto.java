@@ -11,6 +11,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * <p>
+ * Data transfer object that maps the employee details.
+ * </p>
+ */
 @Builder
 @Getter
 @Setter

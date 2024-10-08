@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+/**
+ * <p>
+ *   Service class that handles business logic related to accounts
+ * </p>
+ */
 @Service
 public class AccountService {
 

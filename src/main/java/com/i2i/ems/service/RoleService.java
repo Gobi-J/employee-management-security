@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+/**
+ * <p>
+ *   Service class that handles business logic related to roles
+ * </p>
+ */
 @Service
 public class RoleService {
 

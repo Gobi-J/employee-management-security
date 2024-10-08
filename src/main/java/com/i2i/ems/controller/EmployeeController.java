@@ -3,7 +3,6 @@ package com.i2i.ems.controller;
 import java.security.Principal;
 import java.util.List;
 
-import com.i2i.ems.helper.UserException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;

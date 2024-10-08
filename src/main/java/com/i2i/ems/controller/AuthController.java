@@ -7,6 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * <p>
+ *   Controller that handles the authentication related operations.
+ * </p>
+ */
 @RestController
 @RequestMapping("v1/auth")
 public class AuthController {

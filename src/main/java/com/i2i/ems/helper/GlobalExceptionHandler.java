@@ -13,6 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+/**
+ * <p>
+ *   Global exception handler class that handles exceptions thrown by the application.
+ * </p>
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -43,17 +48,6 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(value = {UnAuthorizedException.class, UsernameNotFoundException.class})
   public ResponseEntity<String> handleUserServiceException(Exception e) {
     return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-//    if (e instanceof BadCredentialsException) {
-//      return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
-//    } else if (e instanceof AccessDeniedException) {
-//      return ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
-//    } else if (e instanceof SignatureException) {
-//      return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
-//    } else if (e instanceof ExpiredJwtException) {
-//      return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
-//    } else {
-//      return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-//    }
   }
 
   @ExceptionHandler(value = {EmployeeException.class})

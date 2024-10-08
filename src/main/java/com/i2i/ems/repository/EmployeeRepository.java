@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.i2i.ems.model.Employee;
 
+/**
+ * <p>
+ * Provides methods to access employee details from the database.
+ * </p>
+ */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 

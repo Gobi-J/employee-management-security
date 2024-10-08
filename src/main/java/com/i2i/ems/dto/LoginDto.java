@@ -3,6 +3,11 @@ package com.i2i.ems.dto;
 import com.i2i.ems.model.Type;
 import lombok.*;
 
+/**
+ * <p>
+ * Data transfer object that maps the login details.
+ * </p>
+ */
 @Builder
 @Setter
 @Getter

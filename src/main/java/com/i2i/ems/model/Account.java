@@ -3,6 +3,11 @@ package com.i2i.ems.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * <p>
+ * Model class that maps the account details.
+ * </p>
+ */
 @Builder
 @Getter
 @Setter

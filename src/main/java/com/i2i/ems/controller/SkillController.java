@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * <p>
+ * Controller that handles the skill related operations.
+ * </p>
+ */
 @RestController
 @RequestMapping("v1/employees/{employeeId}/skills")
 public class SkillController {

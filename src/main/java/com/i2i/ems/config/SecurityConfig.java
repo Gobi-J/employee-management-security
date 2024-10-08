@@ -19,6 +19,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+/**
+ * <p>
+ *   Configures the security settings for the application.
+ * </p>
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

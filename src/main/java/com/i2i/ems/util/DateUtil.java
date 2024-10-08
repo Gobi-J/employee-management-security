@@ -6,7 +6,23 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 
+/**
+ * <p>
+ * Utility class that provides methods to perform date related operations.
+ * </p>
+ */
 public class DateUtil {
+  /**
+   * <p>
+   * Returns the number of years between two dates.
+   * </p>
+   *
+   * @param date1
+   *          the first date
+   * @param date2
+   *          the second date
+   * @return the number of years between the two dates
+   */
   public static int getYearsBetween(Date date1, Date date2) {
     if(date1 == null || date2 == null) {
       return -1;

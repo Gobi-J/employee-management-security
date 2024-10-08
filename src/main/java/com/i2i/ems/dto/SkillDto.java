@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * <p>
+ * Data transfer object that maps the skill details.
+ * </p>
+ */
 @Builder
 @Getter
 @NoArgsConstructor

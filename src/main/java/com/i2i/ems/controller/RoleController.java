@@ -9,6 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * <p>
+ * Controller that handles the role related operations.
+ * </p>
+ */
 @RestController
 @RequestMapping("v1/employees/{employeeId}/roles")
 public class RoleController{

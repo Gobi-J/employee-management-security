@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+/**
+ * <p>
+ *   Service class that handles business logic related to skills
+ * </p>
+ */
 @Service
 public class SkillService {
 

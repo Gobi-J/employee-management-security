@@ -17,14 +17,12 @@ public class DateUtil {
    * Returns the number of years between two dates.
    * </p>
    *
-   * @param date1
-   *          the first date
-   * @param date2
-   *          the second date
+   * @param date1 the first date
+   * @param date2 the second date
    * @return the number of years between the two dates
    */
   public static int getYearsBetween(Date date1, Date date2) {
-    if(date1 == null || date2 == null) {
+    if (date1 == null || date2 == null) {
       return -1;
     }
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

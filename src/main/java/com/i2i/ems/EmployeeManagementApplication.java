@@ -1,10 +1,7 @@
 package com.i2i.ems;
 
-import com.i2i.ems.controller.EmployeeController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class EmployeeManagementApplication {
@@ -13,3 +10,19 @@ public class EmployeeManagementApplication {
 		SpringApplication.run(EmployeeManagementApplication.class, args);
 	}
 }
+
+// Get all employees
+// Private methods
+// Autowired
+// Secret key in class level
+// Variables
+// Skill controller
+// Illegal argument exception in getEmployee
+// Import organize
+// No auth controller
+// Login and Register name change in service
+// Static methods in jwtUtil
+// Error handling correction instanceof
+// uuid in employee
+
+// OAuth

@@ -1,6 +1,5 @@
 package com.i2i.ems.helper;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
@@ -8,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *   Exception class that handles exceptions related to employee.
  * </p>
  */
-@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+@ResponseStatus
 public class EmployeeException extends RuntimeException {
   public EmployeeException(String message, Throwable cause) {
     super(message, cause);

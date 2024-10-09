@@ -3,13 +3,19 @@ package com.i2i.ems.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.i2i.ems.model.Type;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import com.i2i.ems.model.Type;
+import org.hibernate.validator.constraints.UniqueElements;
 
 /**
  * <p>
@@ -23,6 +29,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EmployeeDto {
   private int id;
+  private String UUID;
 
   @Pattern(regexp = "^[a-zA-Z]+( [a-zA-Z]+)*$", message = "Name should contain only alphabets")
   private String name;

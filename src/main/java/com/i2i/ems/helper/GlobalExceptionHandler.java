@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +48,11 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(value = {UnAuthorizedException.class, UsernameNotFoundException.class})
   public ResponseEntity<String> handleUserServiceException(Exception e) {
     return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+  }
+
+  @ExceptionHandler(value = {ForbiddenException.class})
+  public ResponseEntity<String> handleForbiddenException(Exception e) {
+    return new ResponseEntity<>(e.getMessage(), HttpStatus.FORBIDDEN);
   }
 
   @ExceptionHandler(value = {EmployeeException.class})

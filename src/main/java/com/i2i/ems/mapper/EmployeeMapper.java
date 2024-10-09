@@ -1,17 +1,16 @@
 package com.i2i.ems.mapper;
 
+import java.util.Date;
+import java.util.stream.Collectors;
+
 import com.i2i.ems.dto.AccountDto;
 import com.i2i.ems.dto.EmployeeDto;
-import com.i2i.ems.dto.LoginDto;
 import com.i2i.ems.dto.RoleDto;
 import com.i2i.ems.model.Account;
 import com.i2i.ems.model.Employee;
 import com.i2i.ems.model.Role;
 import com.i2i.ems.model.Type;
 import com.i2i.ems.util.DateUtil;
-
-import java.util.Date;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -25,14 +24,12 @@ public class EmployeeMapper {
    * Maps the employee model to employee DTO.
    * </p>
    *
-   * @param employee
-   *        all details of an employee
-   * @return {@link EmployeeDto}
-   *        id, name, email, mobile number and age of the employee
+   * @param employee all details of an employee
+   * @return {@link EmployeeDto} id, name, email, mobile number and age of the employee
    */
   public static EmployeeDto modelsToDtos(Employee employee) {
     return EmployeeDto.builder()
-        .id(employee.getId())
+        .UUID(employee.getUUID())
         .name(employee.getName())
         .email(employee.getEmail())
         .mobileNo(employee.getMobileNo())
@@ -45,14 +42,12 @@ public class EmployeeMapper {
    * Maps the employee model to employee DTO.
    * </p>
    *
-   * @param employee
-   *        all details of an employee
-   * @return {@link EmployeeDto}
-   *        id, name, email, mobile number, age, role, account and skills of the employee
+   * @param employee all details of an employee
+   * @return {@link EmployeeDto} id, name, email, mobile number, age, role, account and skills of the employee
    */
   public static EmployeeDto modelToDto(Employee employee) {
     return EmployeeDto.builder()
-        .id(employee.getId())
+        .UUID(employee.getUUID())
         .name(employee.getName())
         .email(employee.getEmail())
         .mobileNo(employee.getMobileNo())
@@ -76,10 +71,8 @@ public class EmployeeMapper {
    * Maps the employee DTO to employee model.
    * </p>
    *
-   * @param employeeDto
-   *        id, name, date of birth, email, mobile number, role, account and skills of the employee
-   * @return {@link Employee}
-   *        all details of an employee
+   * @param employeeDto id, name, date of birth, email, mobile number, role, account and skills of the employee
+   * @return {@link Employee} all details of an employee
    */
   public static Employee dtoToModel(EmployeeDto employeeDto) {
     return Employee.builder()
@@ -107,23 +100,6 @@ public class EmployeeMapper {
         .skills(null != employeeDto.getSkills() ? employeeDto.getSkills()
             .stream().map(SkillMapper::dtoToModel)
             .collect(Collectors.toList()) : null)
-        .build();
-  }
-
-  /**
-   * <p>
-   * Maps the employee model to login DTO.
-   * </p>
-   *
-   * @param employee
-   *        email and user type of the employee
-   * @return {@link LoginDto}
-   *        user name and user type of the employee
-   */
-  public static LoginDto modelToLoginDto(Employee employee) {
-    return LoginDto.builder()
-        .userName(employee.getEmail())
-        .userType(employee.getUserType())
         .build();
   }
 }

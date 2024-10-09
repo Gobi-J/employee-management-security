@@ -1,8 +1,8 @@
 package com.i2i.ems.controller;
 
-import com.i2i.ems.dto.SkillDto;
-import com.i2i.ems.model.Skill;
-import com.i2i.ems.service.SkillService;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.i2i.ems.dto.SkillDto;
+import com.i2i.ems.model.Skill;
+import com.i2i.ems.service.SkillService;
 
 /**
  * <p>
@@ -25,19 +27,15 @@ import java.util.List;
 @RequestMapping("v1/employees/{employeeId}/skills")
 public class SkillController {
 
-  private final SkillService skillService;
-
-  public SkillController(SkillService skillService) {
-    this.skillService = skillService;
-  }
+  @Autowired
+  private SkillService skillService;
 
   /**
    * <p>
    * Retrieves all the skills.
    * </p>
    *
-   * @return {@link List<SkillDto>}
-   *           returns list of skills.
+   * @return {@link List<SkillDto>} list of skills with http status code 200.
    */
   @GetMapping("/all")
   public ResponseEntity<List<SkillDto>> getAllSkills() {
@@ -49,10 +47,8 @@ public class SkillController {
    * Retrieves the skill by id.
    * </p>
    *
-   * @param id
-   *        skill id.
-   * @return {@link Skill}
-   *         returns skill.
+   * @param id skill id to be retrieved.
+   * @return {@link Skill} skill details with http status code 200.
    */
   @GetMapping("{id}")
   public ResponseEntity<Skill> getSkillById(@PathVariable int id) {
@@ -64,10 +60,8 @@ public class SkillController {
    * Retrieves the skills by employee id.
    * </p>
    *
-   * @param employeeId
-   *        employee id.
-   * @return {@link List<SkillDto>}
-   *         returns list of skills.
+   * @param employeeId employee id to be retrieved.
+   * @return {@link List<SkillDto>} list of skills with http status code 200.
    */
   @GetMapping
   public ResponseEntity<List<SkillDto>> getSkillsByEmployeeId(@PathVariable int employeeId) {
@@ -79,12 +73,9 @@ public class SkillController {
    * Adds the skill.
    * </p>
    *
-   * @param skillDto
-   *        skill details.
-   * @param employeeId
-   *        employee id.
-   * @return {@link SkillDto}
-   *         returns skill details.
+   * @param skillDto   skill details to be added.
+   * @param employeeId employee id to whom skill is to be added.
+   * @return {@link SkillDto} skill details with http status code 201.
    */
   @PostMapping
   public ResponseEntity<SkillDto> addSkill(@RequestBody SkillDto skillDto, @PathVariable int employeeId) {
@@ -93,15 +84,12 @@ public class SkillController {
 
   /**
    * <p>
-   * Updates the skill.
+   * Updates the skill details.
    * </p>
    *
-   * @param skillDto
-   *        skill details.
-   * @param employeeId
-   *        employee id.
-   * @return {@link SkillDto}
-   *         returns skill details.
+   * @param skillDto   skill details to be updated.
+   * @param employeeId employee id to whom skill is to be updated.
+   * @return {@link SkillDto} skill details with http status code 200.
    */
   @PutMapping
   public ResponseEntity<SkillDto> updateSkill(@RequestBody SkillDto skillDto, @PathVariable int employeeId) {
@@ -110,13 +98,11 @@ public class SkillController {
 
   /**
    * <p>
-   * Deletes the skill.
+   * Deletes the skill of the employee.
    * </p>
    *
-   * @param employeeId
-   *        employee id.
-   * @return {@link HttpStatus}
-   *         returns status.
+   * @param employeeId employee id to whom skill is to be deleted.
+   * @return {@link HttpStatus} http status code 204 if skill is deleted.
    */
   @DeleteMapping
   public ResponseEntity<HttpStatus> deleteSkill(@PathVariable int employeeId) {
@@ -126,15 +112,12 @@ public class SkillController {
 
   /**
    * <p>
-   * Deletes the skill.
+   * Deletes the skills of the employee.
    * </p>
    *
-   * @param id
-   *        skill id.
-   * @param employeeId
-   *        employee id.
-   * @return {@link HttpStatus}
-   *         returns status.
+   * @param id         skill id to be deleted.
+   * @param employeeId employee id to whom skill is to be deleted.
+   * @return {@link HttpStatus} http status code 204 if skill is deleted.
    */
   @DeleteMapping("{id}")
   public ResponseEntity<HttpStatus> deleteSkill(@PathVariable int id, @PathVariable int employeeId) {

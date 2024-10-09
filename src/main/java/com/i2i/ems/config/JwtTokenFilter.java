@@ -26,8 +26,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
   private final HandlerExceptionResolver handlerExceptionResolver;
-  @Autowired
-  private JwtTokenUtil jwtTokenUtil;
+
   @Autowired
   private UserService userService;
 
@@ -37,12 +36,72 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
   /**
    * <p>
-   * Filter to validate jwt token and set user identity on spring security context.
+   *   Checks if the request is an authentication request.
+   *   If the request is an authentication request, it returns true.
+   *   Otherwise, it returns false.
    * </p>
    *
-   * @param request  HttpServletRequest object.
-   * @param response HttpServletResponse object.
-   * @param chain    FilterChain object.
+   * @param request
+   *    HttpServletRequest object to check if the request is an authentication request.
+   * @return boolean
+   *     returns true if the request is an authentication request.
+   */
+  private boolean isAuthRequest(HttpServletRequest request) {
+    return request.getRequestURI().contains("/login") || request.getRequestURI().contains("/register");
+  }
+
+  /**
+   * <p>
+   *   Validates the Authorization header.
+   * </p>
+   *
+   * @param request
+   *        HttpServletRequest object to validate the Authorization header.
+   * @return String
+   *         Authorization header.
+   * @throws UnAuthorizedException
+   *         if the Authorization header is invalid(null or does not start with "Bearer ").
+   */
+  private String validateHeader(HttpServletRequest request) {
+    String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+    if (header == null || !header.startsWith("Bearer ")) {
+      throw new UnAuthorizedException("Invalid Authorization header");
+    }
+    return header;
+  }
+
+  /**
+   * <p>
+   *   Validates the jwt token.
+   * </p>
+   *
+   * @param request
+   *       HttpServletRequest object to validate the jwt token.
+   * @return jwt token
+   *         valid token from the Authorization header to be used for other operations.
+   * @throws UnAuthorizedException
+   *         if the jwt token is invalid.
+   */
+  private String validateToken(HttpServletRequest request) throws UnAuthorizedException {
+    String header = validateHeader(request);
+    String token = header.split(" ")[1].trim();
+    if (!JwtTokenUtil.validate(token)) {
+      throw new UnAuthorizedException("Invalid token");
+    }
+    return token;
+  }
+
+  /**
+   * <p>
+   * Filter to validate jwt token and set user identity on spring security context.
+   * If the request is an authentication request, it passes the request and response to the next filter.
+   * Otherwise it validates the jwt token and sets the user identity on spring security context.
+   * If the jwt token is invalid or expired, it throws an UnAuthorizedException.
+   * </p>
+   *
+   * @param request  HttpServletRequest object to get the request details.
+   * @param response HttpServletResponse object to send the response.
+   * @param chain    FilterChain object to pass the request and response to the next filter.
    * @throws ServletException Exception thrown by the servlet.
    * @throws IOException      Exception thrown by the input/output operation.
    */
@@ -52,22 +111,21 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                FilterChain chain)
       throws ServletException, IOException {
 
-    if (request.getRequestURI().contains("/v1/auth/")) {
+    if (isAuthRequest(request)) {
       chain.doFilter(request, response);
       return;
     }
+
     try {
-      final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-      if (header == null || !header.startsWith("Bearer ")) {
-        throw new UnAuthorizedException("Invalid Authorization header");
+      final String token = validateToken(request);
+
+      // If the user is already authenticated, do not authenticate again
+      if (SecurityContextHolder.getContext().getAuthentication() != null) {
+        chain.doFilter(request, response);
+        return;
       }
 
-      final String token = header.split(" ")[1].trim();
-      if (!jwtTokenUtil.validate(token)) {
-        throw new UnAuthorizedException("Invalid token");
-      }
-
-      UserDetails userDetails = userService.loadUserByUsername(jwtTokenUtil.getUsername(token));
+      UserDetails userDetails = userService.loadUserByUsername(JwtTokenUtil.getUsername(token));
 
       if (userDetails == null) {
         chain.doFilter(request, response);

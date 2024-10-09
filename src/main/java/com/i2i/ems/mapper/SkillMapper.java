@@ -15,10 +15,8 @@ public class SkillMapper {
    * Maps the skill DTO to skill model.
    * </p>
    *
-   * @param skillDto
-   *        id, name, category and institute of the skill
-   * @return {@link Skill}
-   *        all details of a skill
+   * @param skillDto id, name, category and institute of the skill
+   * @return {@link Skill} all details of a skill
    */
   public static Skill dtoToModel(SkillDto skillDto) {
     return Skill.builder()
@@ -35,10 +33,8 @@ public class SkillMapper {
    * Maps the skill model to skill DTO.
    * </p>
    *
-   * @param skill
-   *        all details of a skill
-   * @return {@link SkillDto}
-   *        id and name of the skill
+   * @param skill all details of a skill
+   * @return {@link SkillDto} id and name of the skill
    */
   public static SkillDto modelToDto(Skill skill) {
     return SkillDto.builder()

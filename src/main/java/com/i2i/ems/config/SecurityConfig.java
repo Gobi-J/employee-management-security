@@ -21,12 +21,18 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 /**
  * <p>
- *   Configures the security settings for the application.
+ * Configures the security settings for the application.
  * </p>
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+  private final static int STRENGTH = 12;
+  private final static String[] WHITELIST = {
+      "/v1/employees/login",
+      "/v1/employees/register"
+  };
 
   @Autowired
   @Qualifier("handlerExceptionResolver")
@@ -42,21 +48,18 @@ public class SecurityConfig {
 
   /**
    * <p>
-   *   Configures the security filter chain that carries out authentication and authorization.
+   * Configures the security filter chain that carries out authentication and authorization.
    * </p>
    *
-   * @param http
-   *       the {@link HttpSecurity} object.
-   * @return {@link SecurityFilterChain}
-   *      returns the security filter chain.
-   * @throws Exception
-   *       if any error occurs during the configuration.
+   * @param http the {@link HttpSecurity} object to be configured.
+   * @return {@link SecurityFilterChain} custom security filter chain object to be created as a bean.
+   * @throws Exception if any error occurs during the configuration.
    */
   @Bean
   protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(customizer -> customizer
-            .requestMatchers("v1/auth/*").permitAll()
+            .requestMatchers(WHITELIST).permitAll()
             .anyRequest().authenticated())
         .formLogin(Customizer.withDefaults())
         .httpBasic(Customizer.withDefaults())
@@ -67,31 +70,27 @@ public class SecurityConfig {
 
   /**
    * <p>
-   *   Configures the authentication provider.
+   * Configures the authentication provider.
    * </p>
    *
-   * @return {@link AuthenticationProvider}
-   *      returns the authentication provider.
+   * @return {@link AuthenticationProvider} custom authentication provider.
    */
   @Bean
   public AuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService);
-    authProvider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+    authProvider.setPasswordEncoder(new BCryptPasswordEncoder(STRENGTH));
     return authProvider;
   }
 
   /**
    * <p>
-   *   Configures the authentication manager.
+   * Configures the authentication manager.
    * </p>
    *
-   * @param http
-   *       the {@link HttpSecurity} object.
-   * @return {@link AuthenticationManager}
-   *      returns the authentication manager.
-   * @throws Exception
-   *       if any error occurs during the configuration.
+   * @param http {@link HttpSecurity} object to be configured.
+   * @return {@link AuthenticationManager} custom authentication manager.
+   * @throws Exception if any error occurs during the configuration.
    */
   @Bean
   public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -105,14 +104,13 @@ public class SecurityConfig {
 
   /**
    * <p>
-   *   Configures the password encoder.
+   * Configures the password encoder.
    * </p>
    *
-   * @return {@link BCryptPasswordEncoder}
-   *      returns the password encoder.
+   * @return {@link BCryptPasswordEncoder}custom password encoder with strength.
    */
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder(12);
+    return new BCryptPasswordEncoder(STRENGTH);
   }
 }

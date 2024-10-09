@@ -1,21 +1,25 @@
 package com.i2i.ems.util;
 
-import com.i2i.ems.helper.UnAuthorizedException;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
+import org.springframework.stereotype.Component;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+
+import com.i2i.ems.helper.EmployeeException;
+import com.i2i.ems.helper.UnAuthorizedException;
 
 /**
  * <p>
@@ -25,17 +29,20 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-  private static String key = "";
+  private static final SecretKey JWT_SECRET_KEY;
+  private static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60; // 1 hour in milliseconds
 
-  /**
-   * <p>
-   * Constructor to generate secret key.
-   * </p>
-   */
-  public JwtTokenUtil() throws NoSuchAlgorithmException {
-    KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+  static {
+    String key;
+    KeyGenerator keyGenerator;
+    try {
+      keyGenerator = KeyGenerator.getInstance("HmacSHA256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new EmployeeException("Issue with generating token", e);
+    }
     SecretKey secretKey = keyGenerator.generateKey();
     key = Base64.getEncoder().encodeToString(secretKey.getEncoded());
+    JWT_SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
   }
 
   /**
@@ -48,10 +55,10 @@ public class JwtTokenUtil {
    * @throws UnAuthorizedException If token is invalid.
    * @throws UnAuthorizedException If token is expired.
    */
-  public boolean validate(String token) {
+  public static boolean validate(String token) {
     try {
       Jwts.parser()
-          .verifyWith(getKey())
+          .verifyWith(JWT_SECRET_KEY)
           .build()
           .parse(token);
       return true;
@@ -72,28 +79,16 @@ public class JwtTokenUtil {
    * @param username Username to generate token.
    * @return {@link String} Generated token.
    */
-  public String generateAccessToken(String username) {
+  public static String generateAccessToken(String username) {
     Map<String, Object> claims = new HashMap<>();
 
     return Jwts.builder()
         .claims(claims)
         .subject(username)
         .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 10))
-        .signWith(getKey())
+        .expiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
+        .signWith(JWT_SECRET_KEY)
         .compact();
-  }
-
-  /**
-   * <p>
-   *   Creates a secret key from the key string.
-   *   Uses HmacSHA256 algorithm.
-   * </p>
-   *
-   * @return {@link SecretKey} Secret key generated from the key string.
-   */
-  private SecretKey getKey(){
-    return Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
   }
 
   /**
@@ -104,7 +99,7 @@ public class JwtTokenUtil {
    * @param token Token from which username is to be extracted.
    * @return {@link String} Username extracted from the token.
    */
-  public String getUsername(String token) {
+  public static String getUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
 
@@ -117,23 +112,9 @@ public class JwtTokenUtil {
    * @param claimsResolver Function to extract claim.
    * @return {@link T} Claim extracted from the token.
    */
-  public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+  private static <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
-  }
-
-  /**
-   * <p>
-   * Checks if the token is expired.
-   * </p>
-   *
-   * @param token Token to be checked.
-   * @throws UnAuthorizedException If token is expired.
-   */
-  private void isTokenExpired(String token) throws UnAuthorizedException {
-    if(extractClaim(token, Claims::getExpiration).before(new Date())) {
-      throw new UnAuthorizedException("Token expired");
-    }
   }
 
   /**
@@ -144,10 +125,10 @@ public class JwtTokenUtil {
    * @param token Token from which claims are to be extracted.
    * @return {@link Claims} All claims extracted from the token.
    */
-  private Claims extractAllClaims(String token) {
+  private static Claims extractAllClaims(String token) {
     return Jwts
         .parser()
-        .verifyWith(getKey())
+        .verifyWith(JWT_SECRET_KEY)
         .build()
         .parseSignedClaims(token)
         .getPayload();

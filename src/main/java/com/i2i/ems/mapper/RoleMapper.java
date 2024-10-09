@@ -15,10 +15,8 @@ public class RoleMapper {
    * Maps the role model to role DTO.
    * </p>
    *
-   * @param role
-   *        all details of a role
-   * @return {@link RoleDto}
-   *        id, designation, level and department of the role
+   * @param role all details of a role
+   * @return {@link RoleDto} id, designation, level and department of the role
    */
   public static RoleDto modelToDto(Role role) {
     return RoleDto.builder()
@@ -32,10 +30,8 @@ public class RoleMapper {
    * Maps the role DTO to role model.
    * </p>
    *
-   * @param roleDto
-   *        id, designation, level and department of the role
-   * @return {@link Role}
-   *        all details of a role
+   * @param roleDto id, designation, level and department of the role
+   * @return {@link Role} all details of a role
    */
   public static Role dtoToModel(RoleDto roleDto) {
     return Role.builder()

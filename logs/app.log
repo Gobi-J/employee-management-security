@@ -607,3 +607,35 @@ java.lang.ClassCastException: class java.util.ArrayList cannot be cast to class 
 2024-10-09 14:47:29 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-10-09 14:47:29 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-10-09 14:47:29 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-10-09 17:51:18 [main] INFO  c.i.e.EmployeeManagementApplication - Starting EmployeeManagementApplication using Java 21.0.4 with PID 4940 (C:\Users\gobi.jagadeesh\Desktop\Java\EmployeeManagementJwt\target\classes started by gobi.jagadeesh in C:\Users\gobi.jagadeesh\Desktop\Java\EmployeeManagementJwt)
+2024-10-09 17:51:18 [main] INFO  c.i.e.EmployeeManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2024-10-09 17:51:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-10-09 17:51:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 76 ms. Found 4 JPA repository interfaces.
+2024-10-09 17:51:21 [main] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2024-10-09 17:51:21 [main] INFO  o.a.c.c.StandardService - Starting service [Tomcat]
+2024-10-09 17:51:21 [main] INFO  o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-10-09 17:51:21 [main] INFO  o.a.c.c.C.[.[.[/ems/api] - Initializing Spring embedded WebApplicationContext
+2024-10-09 17:51:21 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2565 ms
+2024-10-09 17:51:21 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-10-09 17:51:21 [main] INFO  o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-10-09 17:51:21 [main] INFO  o.h.Version - HHH000412: Hibernate ORM core version 6.5.3.Final
+2024-10-09 17:51:21 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-10-09 17:51:22 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-10-09 17:51:22 [main] INFO  c.z.h.HikariDataSource - HikariPool-1 - Starting...
+2024-10-09 17:51:22 [main] INFO  c.z.h.p.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d01ea33
+2024-10-09 17:51:22 [main] INFO  c.z.h.HikariDataSource - HikariPool-1 - Start completed.
+2024-10-09 17:51:22 [main] WARN  o.h.o.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-10-09 17:51:22 [main] WARN  o.h.o.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2024-10-09 17:51:23 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-10-09 17:51:23 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-10-09 17:51:24 [main] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-10-09 17:51:24 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-10-09 17:51:25 [main] INFO  o.s.b.a.e.w.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2024-10-09 17:51:26 [main] INFO  o.s.b.w.e.t.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/ems/api'
+2024-10-09 17:51:26 [main] INFO  c.i.e.EmployeeManagementApplication - Started EmployeeManagementApplication in 8.297 seconds (process running for 9.227)
+2024-10-09 17:51:26 [RMI TCP Connection(2)-192.168.16.208] INFO  o.a.c.c.C.[.[.[/ems/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-10-09 17:51:26 [RMI TCP Connection(2)-192.168.16.208] INFO  o.s.w.s.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-10-09 17:51:26 [RMI TCP Connection(2)-192.168.16.208] INFO  o.s.w.s.DispatcherServlet - Completed initialization in 3 ms
+2024-10-09 18:26:55 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-10-09 18:26:55 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-10-09 18:26:55 [SpringApplicationShutdownHook] INFO  c.z.h.HikariDataSource - HikariPool-1 - Shutdown completed.

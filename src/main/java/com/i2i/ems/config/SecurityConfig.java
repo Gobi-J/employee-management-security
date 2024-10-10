@@ -56,7 +56,7 @@ public class SecurityConfig {
    * @throws Exception if any error occurs during the configuration.
    */
   @Bean
-  protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+  protected SecurityFilterChain configureSecurityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(customizer -> customizer
             .requestMatchers(WHITELIST).permitAll()
@@ -76,7 +76,7 @@ public class SecurityConfig {
    * @return {@link AuthenticationProvider} custom authentication provider.
    */
   @Bean
-  public AuthenticationProvider authenticationProvider() {
+  public AuthenticationProvider configureAuthenticationProvider() {
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
     authProvider.setUserDetailsService(userDetailsService);
     authProvider.setPasswordEncoder(new BCryptPasswordEncoder(STRENGTH));
@@ -93,12 +93,12 @@ public class SecurityConfig {
    * @throws Exception if any error occurs during the configuration.
    */
   @Bean
-  public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+  public AuthenticationManager configureAuthenticationManager(HttpSecurity http) throws Exception {
     AuthenticationManagerBuilder authenticationManagerBuilder =
         http.getSharedObject(AuthenticationManagerBuilder.class);
     authenticationManagerBuilder.eraseCredentials(false)
         .userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder());
+        .passwordEncoder(configurePasswordEncoder());
     return authenticationManagerBuilder.build();
   }
 
@@ -110,7 +110,7 @@ public class SecurityConfig {
    * @return {@link BCryptPasswordEncoder}custom password encoder with strength.
    */
   @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
+  public BCryptPasswordEncoder configurePasswordEncoder() {
     return new BCryptPasswordEncoder(STRENGTH);
   }
 }
